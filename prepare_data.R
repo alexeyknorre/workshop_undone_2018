@@ -117,7 +117,7 @@ for (i in 1:nrow(crimes)){
 df <- merge(crimes, wiki_table, by.x = "wiki_region_match", by.y = "region")
 
 # Убираем ненужные колонки:
-df <- subset(df, select = -c(region, wiki_region) )
+df <- subset(df, select = -c(region) )
 names(df)[1] <- "region"
 
 # Сохраняем
