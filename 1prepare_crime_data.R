@@ -121,6 +121,6 @@ df <- subset(df, select = -c(region) )
 names(df)[1] <- "region"
 
 # Сохраняем
-write.csv(df, "murder_crimes_by_regions.csv", row.names = F)
+write.csv(df, "data/murder_crimes_by_regions.csv", row.names = F)
 
 

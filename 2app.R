@@ -1,10 +1,27 @@
 library(shiny)
 library(ggvis)
 
-df <- read.csv("murder_crimes_by_regions.csv", stringsAsFactors = F)
+# Load data
+df <- read.csv("data/murder_crimes_by_regions.csv", stringsAsFactors = F)
 
-shinyServer(function(input, output) {
-  
+# Define UI
+ui <- fluidPage(
+  titlePanel("Убийства в России"),
+  div(
+    conditionalPanel(
+      condition = "input.col == 'Обычный график'", ggvisOutput("plot_1")),
+    conditionalPanel(
+      condition = "input.col == 'График с нормированием'", ggvisOutput("plot_2")),
+    align = "center"),
+  hr(),
+  div(
+    radioButtons("col","Переключалка",
+                 choices = c("Обычный график", "График с нормированием"),
+                 selected = "Обычный график"),
+    align = "center"))
+
+# Define server
+server <- function(input, output) {
   region_popup <- function(x) {
     region <- df[df$region == x$region, ]
     
@@ -35,6 +52,7 @@ shinyServer(function(input, output) {
     add_axis("x", title = "Количество убийств и покушений на 100 000 человек") %>%
     add_axis("y", title = "Площадь региона, в кв. км.",title_offset = 80) %>% 
     bind_shiny("plot_2")
-  
-  
-})
+}
+
+# Create Shiny object
+shinyApp(ui = ui, server = server)
