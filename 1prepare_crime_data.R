@@ -1,3 +1,5 @@
+#install.packages(c("xml2","rvest", "stringdist", "ggvis", "readxl", "reshape2", "ggplot2", "scales", "dplyr"))
+
 library(xml2)
 library(rvest)
 
